@@ -9,9 +9,6 @@ class Input extends Component {
           <div className="col-md-6 offset-md-3">
             <div className="input-group mb-3">
               <input type="text" className="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1"/>
-              <div className="input-group-prepend">
-                <button className="btn btn-outline-success" type="button">Add Task</button>
-              </div>
             </div>
           </div>
         </div>
@@ -24,6 +21,7 @@ class App extends Component {
   render() {
     return (
       <div className="App jumbotron">
+        <h1>To-Do List</h1>
         <Input />
       </div>
     );
