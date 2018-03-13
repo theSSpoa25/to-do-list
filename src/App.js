@@ -4,6 +4,21 @@ import './App.css';
 
 
 class Input extends Component {
+  constructor(props) {
+    super(props) 
+
+    this.handleCreate = this.handleCreate.bind(this)
+  }
+
+  handleCreate(e) {
+    e.preventDefault()
+
+    const input = this.refs.input
+    const task = input.value
+
+    console.log(task)
+    this.props.createTask(task)
+  }
   render() {
     return (
       <div className="jumbotron">
@@ -11,9 +26,11 @@ class Input extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-6 offset-md-3">
-              <div className="input-group">
-                <input type="text" className="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1"/>
-              </div>
+              <form onSubmit={this.handleCreate}>
+                <div className="input-group">
+                  <input type="text" className="form-control" placeholder="" ref="input"/>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -29,7 +46,7 @@ class List extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-6 offset-md-3">
-          <ul class="list-group">
+          <ul className="list-group">
             {this.props.tasks.map(task =>
               <li className="list-group">{task}</li>
             )}
@@ -47,15 +64,22 @@ class App extends Component {
     this.state = {
       tasks: [
         'Task 1',
-        'Task 2'
+        'Task 2',
       ]
-
     }
+    this.createTask = this.createTask.bind(this)
+  }
+
+  createTask(task) {
+    console.log(task)
+    this.setState(prevState => ({
+      tasks: [...prevState.tasks, task]
+    }))
   }
   render() {
     return (
       <div className="App">
-        <Input />
+        <Input createTask={this.createTask} />
         <List tasks={this.state.tasks} />
       </div>
     );
