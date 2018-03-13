@@ -17,13 +17,19 @@ class Input extends Component {
     const input = this.refs.input
     const task = input.value
 
-    console.log(task)
-    this.props.createTask(task)
+    if(task.length !== 0) {
+      this.props.createTask(task)
+      this.refs.input.value =''
+    }
+
+    // console.log(task.length)
+   
+    
   }
   render() {
     return (
       <div className="jumbotron">
-        <h1 className="mb-3">To-Do List</h1>
+        <h1 className="mb-3">ToDo List</h1>
         <div className="container">
           <div className="row">
             <div className="col-md-6 offset-md-3">
@@ -50,7 +56,7 @@ class List extends Component {
           <ul className="list-group">
             {this.props.tasks.map(task => 
               <li className="list-group-item text-left">
-              <i class="fas fa-dot-circle mr-2"></i>
+              <i className="fas fa-dot-circle mr-2"></i>
                 {task}
                 <button className="btn btn-success float-right" onClick={this.props.deleteTask.bind(this, task)}><i className="fas fa-check"></i></button>
               </li>
