@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import 'font-awesome/css/font-awesome.min.css'
 
 
 
@@ -47,8 +48,12 @@ class List extends Component {
         <div className="row">
           <div className="col-md-6 offset-md-3">
           <ul className="list-group">
-            {this.props.tasks.map(task =>
-              <li className="list-group">{task}</li>
+            {this.props.tasks.map(task => 
+              <li className="list-group-item text-left">
+              <i class="fas fa-dot-circle mr-2"></i>
+                {task}
+                <button className="btn btn-success float-right" onClick={this.props.deleteTask.bind(this, task)}><i className="fas fa-check"></i></button>
+              </li>
             )}
           </ul>
           </div>
@@ -76,11 +81,16 @@ class App extends Component {
       tasks: [...prevState.tasks, task]
     }))
   }
+
+  deleteTask(task) {
+    let filteredArray = this.state.tasks.filter(item => item !== task)
+    this.setState({tasks: filteredArray});
+  }
   render() {
     return (
       <div className="App">
         <Input createTask={this.createTask} />
-        <List tasks={this.state.tasks} />
+        <List tasks={this.state.tasks} deleteTask={this.deleteTask.bind(this)} />
       </div>
     );
   }
